@@ -23,7 +23,7 @@ Github release latest version contains the Project Report binary. After download
 ```
  ./taskreport -api-key=$GE_KEY --url=$GE_URL --max-builds=20000 --project=nowinandroid --requested-task=assemble --task-path=:core:model:compileKotlin --tags=ci
 ```
-
+Url https://github.com/cdsap/TaskReport/releases/download/v.0.1.0/taskreport 
 ##### You can build from sources using this repository:
 ```
 ./gradlew install
