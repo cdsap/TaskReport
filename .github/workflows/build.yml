@@ -1,0 +1,43 @@
+name: Build
+
+on:
+  push:
+    branches: [ main]
+
+  pull_request:
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        java: [17]
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up JDK ${{ matrix.java }}
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version:  ${{ matrix.java }}
+
+      - name: Prepare a build with nowinandroid
+        run: |
+          mkdir temp_checkout
+          cd temp_checkout 
+          git clone git@github.com:gradle/gradle-enterprise-build-validation-scripts.git 
+          cd gradle-enterprise-build-validation-scripts
+          ./gradlew clean 
+        
+      - name: Execute Fatbinary
+        run: |
+          ./gradlew fatBinary
+          ./taskreport --max-builds=1000 --api-key=${{ secrets.GE_API_KEY }} --url=${{ secrets.GE_URL }}
+
