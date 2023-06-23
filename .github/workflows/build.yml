@@ -34,7 +34,9 @@ jobs:
           cd temp_checkout
           git clone https://github.com/gradle/gradle-enterprise-build-validation-scripts.git
           cd gradle-enterprise-build-validation-scripts
-          ./gradlew clean
+          ./gradlew clean --no-build-cache
+        env:
+          GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GE_KEY }}
 
       - name: Execute Fatbinary
         run: |
