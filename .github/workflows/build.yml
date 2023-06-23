@@ -31,11 +31,11 @@ jobs:
       - name: Prepare a build with nowinandroid
         run: |
           mkdir temp_checkout
-          cd temp_checkout 
-          git clone git@github.com:gradle/gradle-enterprise-build-validation-scripts.git 
+          cd temp_checkout
+          git clone https://github.com/gradle/gradle-enterprise-build-validation-scripts.git
           cd gradle-enterprise-build-validation-scripts
-          ./gradlew clean 
-        
+          ./gradlew clean
+
       - name: Execute Fatbinary
         run: |
           ./gradlew fatBinary
