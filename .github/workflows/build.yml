@@ -34,12 +34,13 @@ jobs:
           cd temp_checkout
           git clone https://github.com/gradle/gradle-enterprise-build-validation-scripts.git
           cd gradle-enterprise-build-validation-scripts
-          ./gradlew clean --no-build-cache
+          ./gradlew build --no-build-cache
+          ./gradlew build --no-build-cache
         env:
           GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GE_KEY }}
 
       - name: Execute Fatbinary
         run: |
           ./gradlew fatBinary
-          ./taskreport --max-builds=1000 --api-key=${{ secrets.GE_API_KEY }} --url=${{ secrets.GE_URL }}
+          ./taskreport --max-builds=500 --project=build-validation-scripts --requested-task=build --task-path=:shellcheckGradleScripts --api-key=${{ secrets.GE_API_KEY }} --url=${{ secrets.GE_URL }}
 
