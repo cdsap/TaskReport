@@ -2,6 +2,7 @@ package io.github.cdsap.taskreport.output
 
 import org.jetbrains.letsPlot.export.ggsave
 import org.jetbrains.letsPlot.geom.geomLine
+import org.jetbrains.letsPlot.geom.geomPoint
 import org.jetbrains.letsPlot.ggplot
 import org.jetbrains.letsPlot.label.ggtitle
 import org.jetbrains.letsPlot.label.labs
@@ -21,12 +22,12 @@ class ImageOutput(private val durations: List<Long>) {
 
     private fun writeImage(taskPath: String, durations: List<Long>) {
         val ka = mapOf(
-            "aa" to DoubleArray(durations.size),
+            "aa" to IntArray(durations.size),
             "base" to IntArray(durations.size) { i -> i + 1 },
-            "bb" to durations
+            "data" to durations
         )
         val fig1 = ggplot(ka) + ggtitle("$taskPath") + labs(x = "", y = "Duration (milliseconds)") +
-            geomLine { x = "base"; y = "bb"; }
+            geomLine { x = "base"; y = "data"; } + geomPoint { y = "data";x = "base" }
         val imageName = "duration${taskPath.replace(":", "_")}-${System.currentTimeMillis()}.png"
         ggsave(plot = fig1, filename = imageName, path = System.getProperty("user.dir"))
         if (File(imageName).exists()) {
