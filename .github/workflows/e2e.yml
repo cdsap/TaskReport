@@ -1,0 +1,33 @@
+name: Docker Build and Push ge-instance-monitor
+
+on:
+  workflow_dispatch:
+
+env:
+  LATEST_TAG: gradle/ge-instance-monitor:latest
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        java: [8,11,17]
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up JDK ${{ matrix.java }}
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version:  ${{ matrix.java }}
+
+      - name: Prepare a build with nowinandroid
+        run: |
+          curl -L https://github.com/cdsap/TaskReport/releases/download/v.0.1.0/taskreport --output taskreport
+          chmod 0757 taskreport
+          ./taskreport --max-builds=500 --project=build-validation-scripts --requested-task=build --task-path=:shellcheckGradleScripts --tags=ci --api-key=${{ secrets.GE_API_KEY }} --url=${{ secrets.GE_URL }}
+        
