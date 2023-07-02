@@ -8,6 +8,7 @@ import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.*
 import com.github.ajalt.clikt.parameters.types.int
 import io.github.cdsap.geapi.client.network.ClientConf
+import io.github.cdsap.taskreport.report.GeneralReport
 import io.github.cdsap.taskreport.report.TaskReport
 
 import kotlinx.coroutines.runBlocking
@@ -29,9 +30,13 @@ class TaskReportCli : CliktCommand() {
     private val user: String? by option()
     private val sinceBuildId: String? by option()
     private val taskType by option()
-    private val taskPath by option().required()
+    private val taskPath by option().check("Specifying --single-task requires inform the --task-path parameter") { singleTask }
+    private val singleTask by option(). flag(default = false)
 
     override fun run() {
+        if(singleTask && taskPath == null || !singleTask && taskPath != null){
+            throw IllegalArgumentException("--single-task and --task-path must be set ")
+        }
         val filter = Filter(
             url = url,
             maxBuilds = maxBuilds,
@@ -68,9 +73,11 @@ class TaskReportCli : CliktCommand() {
         )
 
         runBlocking {
-            TaskReport(filter, repository, cacheRepository, taskPath).process()
+            if(singleTask){
+                TaskReport(filter, repository, cacheRepository, taskPath!!).process()
+            } else {
+                GeneralReport(filter,repository,cacheRepository).process()
+            }
         }
     }
 }
-
-

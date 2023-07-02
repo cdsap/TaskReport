@@ -7,6 +7,7 @@ import io.github.cdsap.geapi.client.model.Filter
 import io.github.cdsap.geapi.client.repository.GradleEnterpriseRepository
 import io.github.cdsap.taskreport.output.CsvOutput
 import io.github.cdsap.taskreport.output.ImageOutput
+import io.github.cdsap.taskreport.view.AllTaskStateView
 import io.github.cdsap.taskreport.view.TaskDurationView
 import io.github.cdsap.taskreport.view.TaskStateView
 
