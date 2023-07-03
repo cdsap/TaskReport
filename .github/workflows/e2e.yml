@@ -31,10 +31,13 @@ jobs:
 
       - name: Prepare a build with nowinandroid
         run: |
+          echo ${{ github.event.inputs.project }}
+          echo ${{ github.event.inputs.requested_task_goal }}
+          echo  ${{ github.event.inputs.tags }}
           curl -L https://github.com/cdsap/TaskReport/releases/download/v.0.2.0/taskreport --output taskreport
           chmod 0757 taskreport
            #./taskreport --max-builds=5000 --project=build-validation-scripts --requested-task=build --task-path=:shellcheckGradleScripts --single-task --tags=ci --api-key=${{ secrets.GE_API_KEY }} --url=${{ secrets.GE_URL }}
-          ./taskreport --max-builds=5000 --project=${{ github.event.inputs.project }} --requested-task=${{ github.event.inputs.requested_task_goal }} --tags=${{ github.event.inputs.requested_task_goal }} --api-key=${{ secrets.GE_API_KEY }} --url=${{ secrets.GE_URL }}
+          ./taskreport --max-builds=5000 --project=${{ github.event.inputs.project }} --requested-task=${{ github.event.inputs.requested_task_goal }} --tags=${{ github.event.inputs.tags }} --api-key=${{ secrets.GE_API_KEY }} --url=${{ secrets.GE_URL }}
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
