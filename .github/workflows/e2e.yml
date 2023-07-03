@@ -2,15 +2,21 @@ name: Run binary in different java versions
 
 on:
   workflow_dispatch:
-
-env:
-  LATEST_TAG: gradle/ge-instance-monitor:latest
+    inputs:
+      project:
+        description: Enter the confirmation phrase 'STAGING' (without quotes) if you are sure you want to trigger a release.
+        required: true
+      requested_task_goal:
+        description: Enter the confirmation phrase 'STAGING' (without quotes) if you are sure you want to trigger a release.
+        required: true
+      tags:
+        required: true
 
 jobs:
   build:
     strategy:
       matrix:
-        java: [8,11,17]
+        java: [11]
 
     runs-on: ubuntu-latest
     timeout-minutes: 60
@@ -31,3 +37,9 @@ jobs:
           chmod 0757 taskreport
           ./taskreport --max-builds=5000 --project=build-validation-scripts --requested-task=build --task-path=:shellcheckGradleScripts --single-task --tags=ci --api-key=${{ secrets.GE_API_KEY }} --url=${{ secrets.GE_URL }}
           ./taskreport --max-builds=5000 --project=build-validation-scripts --requested-task=build --tags=ci --api-key=${{ secrets.GE_API_KEY }} --url=${{ secrets.GE_URL }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: csv
+          path: |
+            ./*_*.csv
+            ./duration_*.png
