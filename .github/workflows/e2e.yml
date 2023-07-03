@@ -5,8 +5,8 @@ on:
     inputs:
       type_report: choice
       options:
-      - general
-      - single-task
+        - general
+        - single-task
       project:
         required: true
       requested_task_goal:
