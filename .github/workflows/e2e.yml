@@ -3,12 +3,19 @@ name: Run binary in different java versions
 on:
   workflow_dispatch:
     inputs:
+      type_report: choice
+      options:
+      - general
+      - single-task
       project:
         required: true
       requested_task_goal:
         required: true
       tags:
         required: true
+      task_path:
+          description: For Single Task reports you need to include the task path under investigation (only Gradle Builds)
+          required: false
 
 jobs:
   build:
@@ -31,13 +38,10 @@ jobs:
 
       - name: Prepare a build with nowinandroid
         run: |
-          echo ${{ github.event.inputs.project }}
-          echo ${{ github.event.inputs.requested_task_goal }}
-          echo  ${{ github.event.inputs.tags }}
           curl -L https://github.com/cdsap/TaskReport/releases/download/v.0.2.0/taskreport --output taskreport
           chmod 0757 taskreport
-           #./taskreport --max-builds=5000 --project=build-validation-scripts --requested-task=build --task-path=:shellcheckGradleScripts --single-task --tags=ci --api-key=${{ secrets.GE_API_KEY }} --url=${{ secrets.GE_URL }}
-          ./taskreport --max-builds=5000 --project=${{ github.event.inputs.project }} --requested-task=${{ github.event.inputs.requested_task_goal }} --tags=${{ github.event.inputs.tags }} --api-key=${{ secrets.GE_API_KEY }} --url=${{ secrets.GE_URL }}
+          if [ ${{ github.event.inputs.type_report }} == "general" ]; then ./taskreport --max-builds=5000 --project=${{ github.event.inputs.project }} --requested-task=${{ github.event.inputs.requested_task_goal }} --tags=${{ github.event.inputs.tags }} --api-key=${{ secrets.GE_API_KEY }} --url=${{ secrets.GE_URL }} ; fi
+          if [ ${{ github.event.inputs.type_report }} == "single-task" ]; then ./taskreport --max-builds=5000 --project=${{ github.event.inputs.project }} --requested-task=${{ github.event.inputs.requested_task_goal }} --single-task --task-path=${{ github.event.inputs.task_path }} --tags=${{ github.event.inputs.tags }} --api-key=${{ secrets.GE_API_KEY }} --url=${{ secrets.GE_URL }} ; fi
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
