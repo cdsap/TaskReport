@@ -35,6 +35,7 @@ jobs:
           chmod 0757 taskreport
            #./taskreport --max-builds=5000 --project=build-validation-scripts --requested-task=build --task-path=:shellcheckGradleScripts --single-task --tags=ci --api-key=${{ secrets.GE_API_KEY }} --url=${{ secrets.GE_URL }}
           ./taskreport --max-builds=5000 --project=${{ github.event.inputs.project }} --requested-task=${{ github.event.inputs.requested_task_goal }} --tags=${{ github.event.inputs.requested_task_goal }} --api-key=${{ secrets.GE_API_KEY }} --url=${{ secrets.GE_URL }}
+      - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: csv
