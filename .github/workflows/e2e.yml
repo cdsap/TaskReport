@@ -38,7 +38,7 @@ jobs:
           distribution: 'temurin'
           java-version:  ${{ matrix.java }}
 
-      - name: Prepare a build with nowinandroid
+      - name: Prepare a report for ${{ github.event.inputs.project }}-${{ github.event.inputs.requested_task_goal }}
         run: |
           curl -L https://github.com/cdsap/TaskReport/releases/download/v.0.2.0/taskreport --output taskreport
           chmod 0757 taskreport
@@ -47,7 +47,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: csv
+          name: ${{ github.event.inputs.type_report }}-${{ github.event.inputs.project }}-${{ github.event.inputs.requested_task_goal }}-outputs
           path: |
             ./*_*.csv
             ./duration_*.png
