@@ -24,12 +24,13 @@ class TaskReport(
         val getBuildScans = GetBuildScansWithQueryImpl(repository)
         val getOutcome = GetCachePerformanceImpl(cacheRepository)
         val buildScansFiltered = getBuildScans.get(filter)
+        if (buildScansFiltered.isNotEmpty() && buildScansFiltered.first().buildTool == "maven") {
+            throw IllegalArgumentException("Single Tasks reports for Maven builds not supported")
+        }
 
         val outcome = getOutcome.get(buildScansFiltered, filter).sortedBy { it.buildStartTime }
 
-
         if (outcome.isNotEmpty()) {
-
             TaskStateView(outcome).print(filter, taskPath)
 
             val buildsWithTaskAndExecution = filterBuildsByTaskAndOutcome(outcome)

@@ -29,4 +29,5 @@ jobs:
         run: |
           curl -L https://github.com/cdsap/TaskReport/releases/download/v.0.1.0/taskreport --output taskreport
           chmod 0757 taskreport
-          ./taskreport --max-builds=5000 --project=build-validation-scripts --requested-task=build --task-path=:shellcheckGradleScripts --tags=ci --api-key=${{ secrets.GE_API_KEY }} --url=${{ secrets.GE_URL }}
+          ./taskreport --max-builds=5000 --project=build-validation-scripts --requested-task=build --task-path=:shellcheckGradleScripts --single--tags=ci --api-key=${{ secrets.GE_API_KEY }} --url=${{ secrets.GE_URL }}
+          ./taskreport --max-builds=5000 --project=build-validation-scripts --requested-task=build --tags=ci --api-key=${{ secrets.GE_API_KEY }} --url=${{ secrets.GE_URL }}

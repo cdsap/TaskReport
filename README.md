@@ -3,12 +3,12 @@ TaskReport is a CLI tool retrieving task information based on the Gradle Enterpr
 Reports provided:
 ### General Report
 Includes:
-* Top 5 task duration task outcome
+* Top 5 task duration by task outcome
 * Top 5 fingerprinting duration by task outcome
 * Csv file including task information like
   * Outcome execution
   * Mean and percentiles by outcome and task duration
-  * Mean and percentiles by outcome and fingerprinting furation
+  * Mean and percentiles by outcome and fingerprinting duration
 
 Example report output:
 ```
@@ -36,6 +36,9 @@ task,module,executions,outcome_executed,outcome_up_to_date,outcome_from_cache,ou
 :gradle-settings-conventions:build-cache:generateExternalPluginSpecBuilders,:gradle-settings-conventions:build-cache,24,12,8,4,4,0,1394,0.0,1120.0,2668.0,3296.5,3681.0,5,0.0,0.0,11.0,18.5,25.0,9,0.0,0.0,0.0,57.0,62.0,9,0.0,0.0,0.0,57.0,62.0,0,0.0,0.0,0.0,0.0,0.0,611,0.0,0.0,1761.0,1892.5,1917.0,2,0.0,0.0,0.0,12.0,18.0,3,0.0,0.0,0.0,19.0,22.0,3,0.0,0.0,0.0,19.0,22.0,0,0.0,0.0,0.0,0.0,0.0
 :gradle-settings-conventions:build-cache:extractPrecompiledScriptPluginPlugins,:gradle-settings-conventions:build-cache,24,12,8,4,4,0,7,0.0,3.0,12.0,22.0,27.0,0,0.0,0.0,0.0,1.5,2.0,0,0.0,0.0,0.0,3.0,10.0,0,0.0,0.0,0.0,3.0,10.0,0,0.0,0.0,0.0,0.0,0.0,0,0.0,0.0,1.0,2.5,5.0,0,0.0,0.0,0.0,0.5,1.0,0,0.0,0.0,0.0,1.0,1.0,0,0.0,0.0,0.0,1.0,1.0,0,0.0,0.0,0.0,0.0,0.0
 ```
+
+TaskReport works only with Gradle Builds.
+
 ### Single Task Report
 Includes:
 * Duration of the task when is executed
@@ -83,7 +86,7 @@ rxhc0a9jq101e,1683179936085,19525
 kkajjwq2isdis,1683179951921,19808
 wqklqwlkqwlkq,1683179958387,27682
 ```
-
+Single Task Report supports Gradle builds
 ## Usage
 
 #### Get Binary
@@ -147,6 +150,9 @@ If you don't want to use the binary provided, you can build the binary from sour
 cd build/install/taskreport/bin
 ./taskreport -api-key=$GE_KEY --url=$GE_URL --max-builds=20000 --project=nowinandroid --requested-task=assemble --task-path=:core:model:compileKotlin --tags=ci
 ```
+
+## Examples Reports
+
 
 ## Compatibility
 We have tested final binary with Java 8, 11 and 17 environments.

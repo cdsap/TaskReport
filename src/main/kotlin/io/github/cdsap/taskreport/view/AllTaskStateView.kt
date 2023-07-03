@@ -11,7 +11,8 @@ import kotlin.time.toDuration
 class AllTaskStateView(private val postStats: List<PostStats>) {
 
     fun print() {
-        printTasks("Tasks", postStats)
+        val typeOfWorkUnit = if(postStats.first().type == "gradle") "Tasks" else "Goals"
+        printTasks(typeOfWorkUnit, postStats)
     }
 
     private fun printTasks(title: String, postStats: List<PostStats>) {
@@ -122,10 +123,12 @@ class AllTaskStateView(private val postStats: List<PostStats>) {
                             alignment = TextAlignment.MiddleCenter
                         }
                     }
-                    row {
-                        cell("UP TO DATE") {
-                            columnSpan = 4
-                            alignment = TextAlignment.MiddleCenter
+                    if(title != "Goals") {
+                        row {
+                            cell("UP TO DATE") {
+                                columnSpan = 4
+                                alignment = TextAlignment.MiddleCenter
+                            }
                         }
                     }
                     row {
@@ -138,8 +141,10 @@ class AllTaskStateView(private val postStats: List<PostStats>) {
                             alignment = TextAlignment.MiddleCenter
                         }
                     }
-                    header()
-                    printedElement(upToDateMean, upToDateP90)
+                    if(title != "Goals") {
+                        header()
+                        printedElement(upToDateMean, upToDateP90)
+                    }
                     row {
                         cell("FROM-CACHE") {
                             columnSpan = 4

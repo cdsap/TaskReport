@@ -6,8 +6,8 @@ import java.io.File
 
 class GeneralCsvOutput(private val outcome: List<PostStats>) {
 
-    fun write(requestedTask: String?) {
-        val csv = "task_report-$requestedTask-${System.currentTimeMillis()}.csv"
+    fun write(requestedTask: String?, typeReport: String) {
+        val csv = "${typeReport}_report-$requestedTask-${System.currentTimeMillis()}.csv"
         val headers =
             "task,module,executions,outcome_executed,outcome_up_to_date,outcome_from_cache,outcome_from_cache_local," +
                 "outcome_from_cache_remote,${headersDuration("duration_executed")},${headersDuration("duration_up_to_date")}," +
