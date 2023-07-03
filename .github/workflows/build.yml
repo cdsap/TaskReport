@@ -39,8 +39,9 @@ jobs:
         env:
           GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GE_KEY }}
 
-      - name: Execute Fatbinary
+      - name: Execute General and Single Task Report
         run: |
           ./gradlew fatBinary
-          ./taskreport --max-builds=500 --project=build-validation-scripts --requested-task=build --task-path=:shellcheckGradleScripts --tags=ci --api-key=${{ secrets.GE_API_KEY }} --url=${{ secrets.GE_URL }}
+          ./taskreport --max-builds=500 --project=build-validation-scripts --requested-task=build --task-path=:shellcheckGradleScripts --single-task  --tags=ci --api-key=${{ secrets.GE_API_KEY }} --url=${{ secrets.GE_URL }}
+          ./taskreport --max-builds=500 --project=build-validation-scripts --requested-task=build --tags=ci --api-key=${{ secrets.GE_API_KEY }} --url=${{ secrets.GE_URL }}
 
