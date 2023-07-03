@@ -3,10 +3,12 @@ name: Run binary in different java versions
 on:
   workflow_dispatch:
     inputs:
-      type_report: choice
-      options:
-        - general
-        - single-task
+      type_report:
+        type_report: choice
+        options:
+          - general
+          - single-task
+        required: true
       project:
         required: true
       requested_task_goal:
