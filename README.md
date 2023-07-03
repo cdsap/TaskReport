@@ -152,7 +152,11 @@ cd build/install/taskreport/bin
 ```
 
 ## Examples Reports
+General Report 
+https://github.com/cdsap/TaskReport/actions/runs/5440258231/jobs/9893010951#step:4:10157
 
+Single Task Report 
+https://github.com/cdsap/TaskReport/actions/runs/5440258231/jobs/9893010951#step:4:5073
 
 ## Compatibility
 We have tested final binary with Java 8, 11 and 17 environments.
