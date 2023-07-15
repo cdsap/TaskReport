@@ -141,6 +141,7 @@ Required parameters:
 | since-build-id        | Starting build to apply the reverse search | null    | No       | --since-build-id=cqiqsDqa2m7cw        |
 | include-failed-builds | Include failing builds                     | true    | No       | --include-failed-builds               |
 | single-task           | Single task flag report                    | false   | No       | --single-task                         |
+| exclusive-tags        | All tags matches with the builds required  | true    | No       | --exclusive-tags                      |
 
 
 ## Building from Source
