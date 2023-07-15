@@ -31,7 +31,8 @@ class TaskReportCli : CliktCommand() {
     private val sinceBuildId: String? by option()
     private val taskType by option()
     private val taskPath by option().check("Specifying --single-task requires inform the --task-path parameter") { singleTask }
-    private val singleTask by option(). flag(default = false)
+    private val singleTask by option().flag(default = false)
+    private val exclusiveTags by option().flag(default = true)
 
     override fun run() {
         if(singleTask && taskPath == null || !singleTask && taskPath != null){
@@ -49,7 +50,8 @@ class TaskReportCli : CliktCommand() {
             includeFailedBuilds = includeFailedBuilds,
             requestedTask = requestedTask,
             concurrentCallsConservative = concurrentCallsCache,
-            sinceBuildId = sinceBuildId
+            sinceBuildId = sinceBuildId,
+            exclusiveTags = exclusiveTags
         )
 
         val repository = GradleRepositoryImpl(
