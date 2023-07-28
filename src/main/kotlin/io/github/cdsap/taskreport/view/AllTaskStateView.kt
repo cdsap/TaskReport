@@ -8,11 +8,12 @@ import kotlin.math.roundToLong
 import kotlin.time.DurationUnit
 import kotlin.time.toDuration
 
-class AllTaskStateView(private val postStats: List<PostStats>) {
+class AllTaskStateView(private val postStats: List<PostStats>, private val filterByTaskType: Boolean) {
 
     fun print() {
-        val typeOfWorkUnit = if(postStats.first().type == "gradle") "Tasks" else "Goals"
-        printTasks(typeOfWorkUnit, postStats)
+        val typeOfWorkUnit = if (postStats.first().type == "gradle") "Tasks" else "Goals"
+        val typeOfFilter = if (filterByTaskType) " by Type" else " by Path"
+        printTasks(typeOfWorkUnit + typeOfFilter, postStats)
     }
 
     private fun printTasks(title: String, postStats: List<PostStats>) {
@@ -123,7 +124,7 @@ class AllTaskStateView(private val postStats: List<PostStats>) {
                             alignment = TextAlignment.MiddleCenter
                         }
                     }
-                    if(title != "Goals") {
+                    if (title != "Goals") {
                         row {
                             cell("UP TO DATE") {
                                 columnSpan = 4
@@ -141,7 +142,7 @@ class AllTaskStateView(private val postStats: List<PostStats>) {
                             alignment = TextAlignment.MiddleCenter
                         }
                     }
-                    if(title != "Goals") {
+                    if (title != "Goals") {
                         header()
                         printedElement(upToDateMean, upToDateP90)
                     }
@@ -187,6 +188,7 @@ class AllTaskStateView(private val postStats: List<PostStats>) {
     }
 
 }
+
 fun TableSectionDsl.header() {
     row(
         "Task",
