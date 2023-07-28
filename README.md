@@ -3,9 +3,11 @@ TaskReport is a CLI tool retrieving task information based on the Gradle Enterpr
 Reports provided:
 ### General Report
 Includes:
-* Top 5 task duration by task outcome
-* Top 5 fingerprinting duration by task outcome
-* Csv file including task information like
+* Top 5 tasks by path duration by task outcome
+* Top 5 tasks by path fingerprinting duration by task outcome
+* Top 5 tasks by type duration by task outcome
+* Top 5 tasks by type fingerprinting duration by task outcome
+* Csv files(by path and by type) including task information like
   * Outcome execution
   * Mean and percentiles by outcome and task duration
   * Mean and percentiles by outcome and fingerprinting duration
