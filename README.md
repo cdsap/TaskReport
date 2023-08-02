@@ -93,7 +93,7 @@ Single Task Report supports Gradle builds
 
 #### Get Binary
 ```
-curl -L https://github.com/cdsap/TaskReport/releases/download/v.0.2.0/taskreport --output taskreport
+curl -L https://github.com/cdsap/TaskReport/releases/download/v.0.2.2/taskreport --output taskreport
 ```
 
 #### Update Permissions
