@@ -1,8 +1,8 @@
 package io.github.cdsap.taskreport.report.tasks
 
 import io.github.cdsap.geapi.client.model.Build
-import io.github.cdsap.geapi.domain.model.Goal
-import io.github.cdsap.geapi.domain.model.Task
+import io.github.cdsap.geapi.client.model.Goal
+import io.github.cdsap.geapi.client.model.Task
 import io.github.cdsap.taskreport.model.Stats
 
 class Stats(

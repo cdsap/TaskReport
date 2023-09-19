@@ -1,7 +1,8 @@
 package io.github.cdsap.taskreport.report
 
-import io.github.cdsap.geapi.client.domain.impl.GetBuildScansWithQueryImpl
-import io.github.cdsap.geapi.client.domain.impl.GetCachePerformanceImpl
+
+import io.github.cdsap.geapi.client.domain.impl.GetBuildsFromQueryWithAttributesRequest
+import io.github.cdsap.geapi.client.domain.impl.GetBuildsWithCachePerformanceRequest
 import io.github.cdsap.geapi.client.model.Filter
 import io.github.cdsap.geapi.client.repository.GradleEnterpriseRepository
 import io.github.cdsap.taskreport.output.GeneralCsvOutput
@@ -15,8 +16,8 @@ class GeneralReport(
 ) {
 
     suspend fun process() {
-        val getBuildScans = GetBuildScansWithQueryImpl(repository)
-        val getOutcome = GetCachePerformanceImpl(cacheRepository)
+        val getBuildScans = GetBuildsFromQueryWithAttributesRequest(repository)
+        val getOutcome = GetBuildsWithCachePerformanceRequest(cacheRepository)
         val buildScansFiltered = getBuildScans.get(filter)
         val outcome = getOutcome.get(buildScansFiltered, filter).sortedBy { it.buildStartTime }
 

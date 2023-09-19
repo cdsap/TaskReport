@@ -40,7 +40,7 @@ jobs:
 
       - name: Prepare a report for ${{ github.event.inputs.project }}-${{ github.event.inputs.requested_task_goal }}
         run: |
-          curl -L https://github.com/cdsap/TaskReport/releases/download/v.0.2.2/taskreport --output taskreport
+          curl -L https://github.com/cdsap/TaskReport/releases/download/v.0.2.3/taskreport --output taskreport
           chmod 0757 taskreport
           if [ ${{ github.event.inputs.type_report }} == "general" ]; then ./taskreport --max-builds=5000 --project=${{ github.event.inputs.project }} --requested-task=${{ github.event.inputs.requested_task_goal }} --tags=${{ github.event.inputs.tags }} --api-key=${{ secrets.GE_API_KEY }} --url=${{ secrets.GE_URL }} ; fi
           if [ ${{ github.event.inputs.type_report }} == "single-task" ]; then ./taskreport --max-builds=5000 --project=${{ github.event.inputs.project }} --requested-task=${{ github.event.inputs.requested_task_goal }} --single-task --task-path=${{ github.event.inputs.task_path }} --tags=${{ github.event.inputs.tags }} --api-key=${{ secrets.GE_API_KEY }} --url=${{ secrets.GE_URL }} ; fi

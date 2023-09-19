@@ -1,7 +1,9 @@
 package io.github.cdsap.taskreport.report
 
-import io.github.cdsap.geapi.client.domain.impl.GetBuildScansWithQueryImpl
-import io.github.cdsap.geapi.client.domain.impl.GetCachePerformanceImpl
+
+import io.github.cdsap.geapi.client.domain.impl.GetBuildsFromQueryWithAttributesRequest
+import io.github.cdsap.geapi.client.domain.impl.GetBuildsWithAttributesRequest
+import io.github.cdsap.geapi.client.domain.impl.GetBuildsWithCachePerformanceRequest
 import io.github.cdsap.geapi.client.model.Build
 import io.github.cdsap.geapi.client.model.Filter
 import io.github.cdsap.geapi.client.repository.GradleEnterpriseRepository
@@ -21,8 +23,8 @@ class TaskReport(
 ) {
 
     suspend fun process() {
-        val getBuildScans = GetBuildScansWithQueryImpl(repository)
-        val getOutcome = GetCachePerformanceImpl(cacheRepository)
+        val getBuildScans = GetBuildsFromQueryWithAttributesRequest(repository)
+        val getOutcome = GetBuildsWithCachePerformanceRequest(cacheRepository)
         val buildScansFiltered = getBuildScans.get(filter)
         if (buildScansFiltered.isNotEmpty() && buildScansFiltered.first().buildTool == "maven") {
             throw IllegalArgumentException("Single Tasks reports for Maven builds not supported")
