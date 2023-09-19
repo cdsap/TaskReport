@@ -93,7 +93,7 @@ Single Task Report supports Gradle builds
 
 #### Get Binary
 ```
-curl -L https://github.com/cdsap/TaskReport/releases/download/v.0.2.2/taskreport --output taskreport
+curl -L https://github.com/cdsap/TaskReport/releases/download/v.0.2.3/taskreport --output taskreport
 ```
 
 #### Update Permissions
@@ -133,7 +133,7 @@ Required parameters:
 
 | Name                  | Description                                | Default | Required | Example                               |
 |-----------------------|--------------------------------------------|---------|----------|---------------------------------------|
-| api-key               | String token                               |         | Yes      | --api-key=$TOKEN_FILE                 |
+| api-key               | String token                               |         | Yes      | --api-key=$GE_KEY                     |
 | url                   | Gradle Enterprise instance                 |         | Yes      | --url=https://ge.acme.dev             |
 | project               | Root project in Gradle Enterprise          |         | Yes      | --project=acme                        |
 | requested-task        | Requested task in the build                |         | Yes      | --requested-task=assemble             |
@@ -155,10 +155,10 @@ cd build/install/taskreport/bin
 ```
 
 ## Examples Reports
-General Report 
+General Report
 https://github.com/cdsap/TaskReport/actions/runs/5440258231/jobs/9893010951#step:4:10157
 
-Single Task Report 
+Single Task Report
 https://github.com/cdsap/TaskReport/actions/runs/5440258231/jobs/9893010951#step:4:5073
 
 ## Compatibility

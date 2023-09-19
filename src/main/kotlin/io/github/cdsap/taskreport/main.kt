@@ -3,13 +3,22 @@ package io.github.cdsap.taskreport
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.*
 import com.github.ajalt.clikt.parameters.types.int
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
+import io.github.cdsap.geapi.client.model.ClientType
 import io.github.cdsap.geapi.client.model.Filter
 import io.github.cdsap.geapi.client.network.ClientConf
 import io.github.cdsap.geapi.client.network.GEClient
 import io.github.cdsap.geapi.client.repository.impl.GradleRepositoryImpl
+import io.github.cdsap.taskreport.model.PostStats
 import io.github.cdsap.taskreport.report.GeneralReport
 import io.github.cdsap.taskreport.report.TaskReport
 import kotlinx.coroutines.runBlocking
+import org.jetbrains.letsPlot.Pos
+import java.io.File
+import java.net.URI
+import java.net.URL
 
 
 fun main(args: Array<String>) {
@@ -39,19 +48,17 @@ class TaskReportCli : CliktCommand() {
             throw IllegalArgumentException("--single-task and --task-path must be set ")
         }
         val filter = Filter(
-            url = url,
             maxBuilds = maxBuilds,
             project = project,
             tags = tags,
-            initFilter = System.currentTimeMillis(),
             user = user,
             concurrentCalls = concurrentCalls,
-            taskType = taskType,
             includeFailedBuilds = includeFailedBuilds,
             requestedTask = requestedTask,
             concurrentCallsConservative = concurrentCallsCache,
             sinceBuildId = sinceBuildId,
-            exclusiveTags = exclusiveTags
+            exclusiveTags = exclusiveTags,
+            clientType = ClientType.CLI
         )
 
         val repository = GradleRepositoryImpl(
