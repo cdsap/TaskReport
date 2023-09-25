@@ -93,7 +93,7 @@ Single Task Report supports Gradle builds
 
 #### Get Binary
 ```
-curl -L https://github.com/cdsap/TaskReport/releases/download/v.0.2.3/taskreport --output taskreport
+curl -L https://github.com/cdsap/TaskReport/releases/download/v.0.2.4/taskreport --output taskreport
 ```
 
 #### Update Permissions
@@ -117,7 +117,7 @@ Required parameters:
 * `url` Gradle Enterprise instance
 * `project` Project where the build is executed
 * `requested-task` Requested task of the build
-* `tags` tags used in the build
+* `tags` tags used in the builds. Support for negation tags using `not:`, example `--tags=not:ci`
 
 ### Single Task Report
 Required parameters:
@@ -126,24 +126,24 @@ Required parameters:
 * `project` Project where the build is executed
 * `requested-task` Requested task of the build
 * `task-path` Task path under investigation
-* `tags` tags used in the build
+* `tags` tags used in the build. Support for negation tags using `not:`, example `--tags=not:ci`
 * `single-task` flag required to specify single task execution
 
 ### Complete list of parameters
 
-| Name                  | Description                                | Default | Required | Example                               |
-|-----------------------|--------------------------------------------|---------|----------|---------------------------------------|
-| api-key               | String token                               |         | Yes      | --api-key=$GE_KEY                     |
-| url                   | Gradle Enterprise instance                 |         | Yes      | --url=https://ge.acme.dev             |
-| project               | Root project in Gradle Enterprise          |         | Yes      | --project=acme                        |
-| requested-task        | Requested task in the build                |         | Yes      | --requested-task=assemble             |
-| task-path             | Task complete path                         |         | No       | --task-path=:core:model:compileKotlin |
-| tags                  | Tags used in the build scans to process    | empty   | Yes      | --tags=ci --tags=linux                |
-| max-builds            | Max builds to be processed                 | 1000    | No       | --max-builds=2000                     |
-| since-build-id        | Starting build to apply the reverse search | null    | No       | --since-build-id=cqiqsDqa2m7cw        |
-| include-failed-builds | Include failing builds                     | true    | No       | --include-failed-builds               |
-| single-task           | Single task flag report                    | false   | No       | --single-task                         |
-| exclusive-tags        | All tags matches with the builds required  | true    | No       | --exclusive-tags                      |
+| Name                  | Description                                | Default | Required | Example                                 |
+|-----------------------|--------------------------------------------|---------|----------|-----------------------------------------|
+| api-key               | String token                               |         | Yes      | --api-key=$GE_KEY                       |
+| url                   | Gradle Enterprise instance                 |         | Yes      | --url=https://ge.acme.dev               |
+| project               | Root project in Gradle Enterprise          |         | Yes      | --project=acme                          |
+| requested-task        | Requested task in the build                |         | Yes      | --requested-task=assemble               |
+| task-path             | Task complete path                         |         | No       | --task-path=:core:model:compileKotlin   |
+| tags                  | Tags used in the build scans to process    | empty   | Yes      | --tags=ci --tags=linux --tags=not:main  |
+| max-builds            | Max builds to be processed                 | 1000    | No       | --max-builds=2000                       |
+| since-build-id        | Starting build to apply the reverse search | null    | No       | --since-build-id=cqiqsDqa2m7cw          |
+| include-failed-builds | Include failing builds                     | true    | No       | --include-failed-builds                 |
+| single-task           | Single task flag report                    | false   | No       | --single-task                           |
+| exclusive-tags        | All tags matches with the builds required  | true    | No       | --exclusive-tags                        |
 
 
 ## Building from Source
