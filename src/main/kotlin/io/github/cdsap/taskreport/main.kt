@@ -22,7 +22,7 @@ import java.net.URL
 
 
 fun main(args: Array<String>) {
-     TaskReportCli().main(args)
+    TaskReportCli().main(args)
 }
 
 class TaskReportCli : CliktCommand() {
@@ -50,7 +50,7 @@ class TaskReportCli : CliktCommand() {
         val filter = Filter(
             maxBuilds = maxBuilds,
             project = project,
-            tags = tags,
+            tags = tags.map { it.replaceFirst("not:", "!") },
             user = user,
             concurrentCalls = concurrentCalls,
             includeFailedBuilds = includeFailedBuilds,
