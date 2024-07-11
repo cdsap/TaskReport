@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.7.21"
+    kotlin("jvm") version "1.9.24"
     application
     id("io.github.cdsap.fatbinary") version "1.0"
 }
@@ -21,8 +21,6 @@ fatBinary {
     name = "taskreport"
 }
 
-
-
 dependencies {
     implementation("org.jetbrains.lets-plot:lets-plot-kotlin-jvm:4.1.1")
     implementation( "org.jetbrains.lets-plot:lets-plot-image-export:2.5.1")
@@ -41,5 +39,5 @@ tasks.test {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = "17"
 }
