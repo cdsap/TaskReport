@@ -45,7 +45,7 @@ jobs:
           if [ ${{ github.event.inputs.type_report }} == "general" ]; then ./taskreport --max-builds=50 --project=${{ github.event.inputs.project }} --requested-task=${{ github.event.inputs.requested_task_goal }} --tags=${{ github.event.inputs.tags }} --api-key=${{ secrets.GE_API_KEY }} --url=${{ secrets.GE_URL }} ; fi
           if [ ${{ github.event.inputs.type_report }} == "single-task" ]; then ./taskreport --max-builds=50 --project=${{ github.event.inputs.project }} --requested-task=${{ github.event.inputs.requested_task_goal }} --single-task --task-path=${{ github.event.inputs.task_path }} --tags=${{ github.event.inputs.tags }} --api-key=${{ secrets.GE_API_KEY }} --url=${{ secrets.GE_URL }} ; fi
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ github.event.inputs.type_report }}-${{ github.event.inputs.project }}-${{ github.event.inputs.requested_task_goal }}-outputs
           path: |
