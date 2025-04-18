@@ -26,7 +26,7 @@ dependencies {
     implementation( "org.jetbrains.lets-plot:lets-plot-image-export:2.5.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
     implementation("io.github.cdsap:geapi-data:0.3.3")
-    implementation("org.slf4j:slf4j-simple:2.0.16")
+    implementation("org.slf4j:slf4j-simple:2.0.17")
     implementation("com.jakewharton.picnic:picnic:0.7.0")
     implementation("com.github.ajalt.clikt:clikt:4.4.0")
     implementation("org.nield:kotlin-statistics:1.2.1")
