@@ -23,7 +23,7 @@ fatBinary {
 
 dependencies {
     implementation("org.jetbrains.lets-plot:lets-plot-kotlin-jvm:4.1.1")
-    implementation( "org.jetbrains.lets-plot:lets-plot-image-export:2.5.1")
+    implementation( "org.jetbrains.lets-plot:lets-plot-image-export:4.7.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
     implementation("io.github.cdsap:geapi-data:0.3.3")
     implementation("org.slf4j:slf4j-simple:2.0.17")
