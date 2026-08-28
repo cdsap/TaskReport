@@ -1,7 +1,7 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    kotlin("jvm") version "2.1.20"
+    kotlin("jvm") version "2.4.10"
     application
     id("io.github.cdsap.fatbinary") version "1.0"
 }
@@ -16,6 +16,12 @@ application {
     mainClass.set("io.github.cdsap.taskreport.MainKt")
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
+
 fatBinary {
     mainClass = "io.github.cdsap.taskreport.Main"
     name = "taskreport"
@@ -26,11 +32,11 @@ dependencies {
     implementation( "org.jetbrains.lets-plot:lets-plot-image-export:2.5.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0")
     implementation("io.github.cdsap:geapi-data:0.3.3")
-    implementation("org.slf4j:slf4j-simple:2.0.17")
+    implementation("org.slf4j:slf4j-simple:2.0.18")
     implementation("com.jakewharton.picnic:picnic:0.7.0")
     implementation("com.github.ajalt.clikt:clikt:4.4.0")
     implementation("org.nield:kotlin-statistics:1.2.1")
-    implementation("com.google.code.gson:gson:2.13.2")
+    implementation("com.google.code.gson:gson:2.14.0")
     testImplementation(kotlin("test"))
 }
 
@@ -38,6 +44,8 @@ tasks.test {
     useJUnitPlatform()
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "17"
+kotlin {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_17)
+    }
 }
