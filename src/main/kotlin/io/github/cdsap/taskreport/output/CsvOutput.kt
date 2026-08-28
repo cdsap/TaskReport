@@ -1,52 +1,28 @@
 package io.github.cdsap.taskreport.output
 
-import io.github.cdsap.geapi.client.model.Build
+import io.github.cdsap.taskreport.report.tasks.SingleTaskDuration
 import java.io.File
 
-class CsvOutput(private val outcome: List<Build>) {
+class CsvOutput(private val rows: List<SingleTaskDuration>) {
 
     fun write(taskPath: String) {
-        val csvEntries = mutableListOf<CsvFormat>()
-
-        outcome.forEach {
-            val duration = it.taskExecution.filter {
-                it.taskPath.contains(taskPath)
-                    && it.avoidanceOutcome.contains("executed")
-            }.sumOf { it.duration }
-            csvEntries.add(
-                CsvFormat(
-                    id = it.id,
-                    date = it.buildStartTime,
-                    duration = duration
-                )
-            )
+        if (rows.isEmpty()) {
+            return
         }
-
-        if (csvEntries.isNotEmpty()) {
-            writeCsv(taskPath, csvEntries)
-        }
-
+        writeCsv(taskPath, rows)
     }
 
     private fun writeCsv(
         taskPath: String,
-        csvEntries: MutableList<CsvFormat>
+        rows: List<SingleTaskDuration>,
     ) {
-        val csv = "duration${taskPath.replace(":","_")}-${System.currentTimeMillis()}.csv"
+        val csv = "duration${taskPath.replace(":", "_")}-${System.currentTimeMillis()}.csv"
         val headers = "BuildId,Date,Duration\n"
         var values = ""
-        csvEntries.forEach {
-            values += "${it.id},${it.date},${it.duration}\n"
+        rows.forEach {
+            values += "${it.buildId},${it.buildStartTime},${it.duration}\n"
         }
         File(csv).writeText("""$headers$values""".trimIndent())
         println("File $csv created")
     }
-
-
 }
-
-data class CsvFormat(
-    val id: String,
-    val date: Long,
-    val duration: Long
-)
