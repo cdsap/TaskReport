@@ -15,7 +15,6 @@ import io.github.cdsap.taskreport.model.PostStats
 import io.github.cdsap.taskreport.report.GeneralReport
 import io.github.cdsap.taskreport.report.TaskReport
 import kotlinx.coroutines.runBlocking
-import org.jetbrains.letsPlot.Pos
 import java.io.File
 import java.net.URI
 import java.net.URL
