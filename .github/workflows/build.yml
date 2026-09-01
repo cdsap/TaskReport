@@ -13,7 +13,7 @@ jobs:
   build:
     strategy:
       matrix:
-        java: [17]
+        java: [17, 19, 21, 23, 25]
 
     runs-on: ubuntu-latest
     timeout-minutes: 60
@@ -44,4 +44,3 @@ jobs:
           ./gradlew fatBinary
           ./taskreport --max-builds=500 --project=build-validation-scripts --requested-task=build --task-path=:shellcheckGradleScripts --single-task  --tags=ci --api-key=${{ secrets.GE_API_KEY }} --url=${{ secrets.GE_URL }}
           ./taskreport --max-builds=500 --project=build-validation-scripts --requested-task=build --tags=ci --api-key=${{ secrets.GE_API_KEY }} --url=${{ secrets.GE_URL }}
-
