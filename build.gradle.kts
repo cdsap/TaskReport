@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     kotlin("jvm") version "2.4.10"
     application
-    id("io.github.cdsap.fatbinary") version "1.0"
+    id("io.github.cdsap.fatbinary") version "1.1.0"
 }
 
 group = "org.example"
