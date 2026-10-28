@@ -32,12 +32,17 @@ dependencies {
     implementation( "org.jetbrains.lets-plot:lets-plot-image-export:2.5.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0")
     implementation("io.github.cdsap:geapi-data:0.3.4")
+    implementation("io.ktor:ktor-client-core:3.6.0")
+    implementation("io.ktor:ktor-client-cio:3.6.0")
+    implementation("io.ktor:ktor-client-content-negotiation:3.6.0")
+    implementation("io.ktor:ktor-serialization-gson:3.6.0")
     implementation("org.slf4j:slf4j-simple:2.0.20")
     implementation("com.jakewharton.picnic:picnic:0.7.0")
     implementation("com.github.ajalt.clikt:clikt:5.1.0")
     implementation("org.nield:kotlin-statistics:1.2.1")
     implementation("com.google.code.gson:gson:2.14.0")
     testImplementation(kotlin("test"))
+    testImplementation("io.ktor:ktor-client-mock:3.6.0")
 }
 
 tasks.test {
