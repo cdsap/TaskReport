@@ -13,6 +13,7 @@ import io.github.cdsap.geapi.client.network.ClientConf
 import io.github.cdsap.geapi.client.network.GEClient
 import io.github.cdsap.geapi.client.repository.impl.GradleRepositoryImpl
 import io.github.cdsap.taskreport.model.PostStats
+import io.github.cdsap.taskreport.network.develocityHttpClient
 import io.github.cdsap.taskreport.report.GeneralReport
 import io.github.cdsap.taskreport.report.TaskReport
 import kotlinx.coroutines.runBlocking
@@ -62,24 +63,21 @@ class TaskReportCli : CliktCommand() {
             clientType = ClientType.CLI
         )
 
-        val repository = GradleRepositoryImpl(
-            GEClient(
-                apiKey, url, ClientConf(
-                    maxRetries = 300,
-                    exponentialBase = 1.0,
-                    exponentialMaxDelay = 5000
-                )
-            )
+        val repositoryConf = ClientConf(
+            maxRetries = 300,
+            exponentialBase = 1.0,
+            exponentialMaxDelay = 5000
         )
-
+        val cacheConf = ClientConf(
+            maxRetries = 100,
+            exponentialBase = 1.0,
+            exponentialMaxDelay = 10000
+        )
+        val repository = GradleRepositoryImpl(
+            GEClient(apiKey, url, repositoryConf, develocityHttpClient(apiKey, repositoryConf))
+        )
         val cacheRepository = GradleRepositoryImpl(
-            GEClient(
-                apiKey, url, ClientConf(
-                    maxRetries = 100,
-                    exponentialBase = 1.0,
-                    exponentialMaxDelay = 10000
-                )
-            )
+            GEClient(apiKey, url, cacheConf, develocityHttpClient(apiKey, cacheConf))
         )
 
         runBlocking {
